@@ -33,6 +33,7 @@ okt = Okt()
 eat_sum = {"sum" : 0}
 check_gift = {"혹시 모를 오류를 위한 선물 계산기" : 0}
 except_gift = []
+
 def menu_fun(m): # main처럼 함수로 만들기.
     money = (m*cup)
     eat_sum["sum"] += money
@@ -267,7 +268,6 @@ def menu_all():
     
     
     
-count = 0
 if __name__ == "__main__":
     # 메인 문장 시작(텍스트 파일을 읽는다.)
     with open("C:/Users/djdjd/OneDrive/바탕 화면/Python/python_cafe/연습.txt", "r", encoding="UTF-8") as f:
@@ -370,7 +370,7 @@ if __name__ == "__main__":
             pos_tags = okt.pos(text_line)
             result = [word for word, pos in pos_tags if pos in ["Noun", "Josa", "Number", "Verb"]]
             ta = result[0]
-            for __ in range(3):
+            for _ in range(3):
                 result.pop(0)
             print(ta, result)
         # 일반적으로 선물 주는 경우
@@ -391,20 +391,21 @@ if __name__ == "__main__":
                 # 이름 중복 제외
                 result = set(result)
                 result = list(result)
+                
                 # 성을 붙인 이름과 안 붙인 이름이 같이 있으면 하나를 지워주는 부분
-                count = 0
+                count_name = 0
                 for n in result:
                     if n in dic_name.keys():
-                        count = 0
+                        count_name = 0
                         key = n
                         pattern = fr'({key})'
                         for text in result:
                             match = re.findall(pattern,text)
                             if key in match:
-                                count += 1
-                            if count >= 2:
+                                count_name += 1
+                            if count_name >= 2:
                                 result.pop(result.index(key))
-                                count = 0
+                                count_name = 0
                 print(result)
                     
                 # 준 사람 & 받은 사람
@@ -430,7 +431,7 @@ if __name__ == "__main__":
                         elif dic_name[rec][0] == 0:
                             dic_name[rec][4] += num1 * 3000
                             dic_name[rec][3] += num1 * 3000
-            
+
                 # 준 사람
                 dic_name[ta][2] += (num1 * count * 3000)
                 money = (num1 * count * 3000)
